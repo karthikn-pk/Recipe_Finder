@@ -1,14 +1,8 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 
-const NavBar = ({ setQuery }) => {
-  const [searchText, setSearchText] = useState("");
-
-  const handleSearch = () => {
-    console.log(searchText);
-    setQuery(searchText);
-    setSearchText("");
-  };
+const NavBar = ({ query, setQuery, handleSearch }) => {
+  // const [searchText, setSearchText] = useState("");
 
   return (
     <div className="flex justify-around py-5 bg-pink-300">
@@ -21,9 +15,9 @@ const NavBar = ({ setQuery }) => {
         <input
           type="text"
           className="p-3 rounded-full"
-          value={searchText}
+          value={query}
           onChange={(e) => {
-            setSearchText(e.target.value);
+            setQuery(e.target.value);
           }}
         />
         <button

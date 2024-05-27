@@ -8,16 +8,38 @@ import Favourites from "./components/Favourites";
 
 function App() {
   const [query, setQuery] = useState("");
+  const [searchData, setSearchData] = useState(null);
+  const [error, setError] = useState("");
+  const [loading, setLoading] = useState(false);
+  // const { searchAPIData, loading, error } = useFetch(query);
+  const handleSearch = () => {
+    // console.log(searchText);
+    fetchData(query);
 
-  const { searchAPIData, loading, error } = useFetch(query);
+    setQuery("");
+  };
+  const fetchData = async (query) => {
+    try {
+      const response = await fetch(
+        `https://forkify-api.herokuapp.com/api/v2/recipes?search=${query}`
+      );
+      const data = await response.json();
+      setSearchData(data?.data?.recipes || []);
+    } catch (error) {
+      console.log(error);
+      setError(error);
+      setSearchData([]);
+    }
+  };
+
   return (
     <>
-      <NavBar setQuery={setQuery} />
+      <NavBar query={query} setQuery={setQuery} handleSearch={handleSearch} />
       <Routes>
         <Route
           path="/"
           element={
-            <Body mainData={searchAPIData} loading={loading} error={error} />
+            <Body mainData={searchData} loading={loading} error={error} />
           }
         />
         <Route path="/recipe-item" element={<RecipePage />} />
