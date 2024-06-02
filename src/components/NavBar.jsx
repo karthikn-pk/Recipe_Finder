@@ -27,13 +27,17 @@ const NavBar = ({ query, setQuery, handleSearch }) => {
         </button>
       </div>
       <div>
-        <ul className="flex font-bold text-3xl ">
+        <ul className="flex font-bold text-3xl  ">
           <Link to="/">
-            <li className="mr-4 cursor-pointer">Home</li>
+            <li className="mr-4 cursor-pointer hover:border-b-4 hover:border-green-600">
+              Home
+            </li>
           </Link>
 
           <Link to="/Favourites">
-            <li className="cursor-pointer">Favourites</li>
+            <li className="cursor-pointer hover:border-b-4 hover:border-green-600">
+              Favourites
+            </li>
           </Link>
         </ul>
       </div>
