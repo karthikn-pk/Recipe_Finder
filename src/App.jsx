@@ -20,11 +20,14 @@ function App() {
   };
   const fetchData = async (query) => {
     try {
+      setLoading(true);
       const response = await fetch(
         `https://forkify-api.herokuapp.com/api/v2/recipes?search=${query}`
       );
       const data = await response.json();
-      setSearchData(data?.data?.recipes || []);
+      if (data.results === 0) throw new Error("No Recipe Found!");
+      setSearchData(data?.data?.recipes);
+      setLoading(false);
     } catch (error) {
       console.log(error);
       setError(error);
@@ -42,7 +45,7 @@ function App() {
             <Body mainData={searchData} loading={loading} error={error} />
           }
         />
-        <Route path="/recipe-item" element={<RecipePage />} />
+        <Route path="/recipe-item/:id" element={<RecipePage />} />
         <Route path="/favourites" element={<Favourites />} />
         <Route path="*" element={<h1>Page Not Found</h1>} />
       </Routes>

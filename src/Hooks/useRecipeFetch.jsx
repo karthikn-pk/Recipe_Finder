@@ -1,24 +1,22 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 
 const useRecipeFetch = (id) => {
-  const [ingredient, setIngredient] = useState({});
+  const [recipeDetails, setRecipeDetails] = useState(null);
   useEffect(() => {
     const fetchIngredients = async () => {
       try {
         const data = await fetch(
           `https://forkify-api.herokuapp.com/api/v2/recipes/${id}`
         );
-        const res = data.json();
-        setIngredient(res?.data?.recipe);
+        const res = await data.json();
+        setRecipeDetails(res?.data?.recipe);
       } catch (error) {
         console.error(error);
       }
     };
-    if (id) {
-      fetchIngredients();
-    }
+    fetchIngredients();
   }, [id]);
-  return ingredient;
+  return recipeDetails;
 };
 
 export default useRecipeFetch;

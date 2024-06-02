@@ -1,7 +1,8 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
 const RecipeCard = ({ mainData }) => {
-  const { publisher, image_url, title } = mainData;
+  const { publisher, image_url, title, id } = mainData;
 
   return (
     <div>
@@ -13,9 +14,12 @@ const RecipeCard = ({ mainData }) => {
 
         <p className="font-bold">{publisher}</p>
         <h2 className="text-2xl font-medium truncate capitalize">{title}</h2>
-        <button className="bg-green-400 p-2 w-30 text-xl font-bold rounded-md">
-          View Recipe
-        </button>
+        <Link to={`/recipe-item/${id}`}>
+          {" "}
+          <button className="bg-green-400 p-2 w-30 text-xl font-bold rounded-md">
+            View Recipe
+          </button>
+        </Link>
       </div>
     </div>
   );
